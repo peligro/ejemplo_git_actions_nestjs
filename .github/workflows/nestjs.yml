@@ -57,6 +57,6 @@ jobs:
             # Build and start new containers
             docker compose up --build -d
             
-            # Wait for containers to be ready and run migrations   
+            # Espere a que los contenedores estén listos y ejecute las migraciones   
             sleep 10
             docker compose exec app npx prisma migrate dev --name init || echo "Migrations may have failed, continuing..."
