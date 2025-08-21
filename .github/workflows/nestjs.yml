@@ -60,5 +60,5 @@ jobs:
             # Wait for container to be ready
             sleep 10
             
-            # Ejecución migraciones
+            # Ejecución migraciones aer
             docker compose exec app npx prisma migrate deploy || echo "Migrations completed"
