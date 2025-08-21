@@ -11,7 +11,8 @@ services:
       - "80:3000"
     environment:
       - NODE_ENV=production
+    # Solo monta el .env, no otros archivos
     volumes:
-      - .env:/usr/src/app/.env
-    # Elimina el depends_on ya que no hay db local
-    command: sh -c "npx prisma migrate deploy && npm run start:prod"
+      - .env:/usr/src/app/.env:ro
+    # Comando simple, las migraciones ya se ejecutaron en el build
+    command: npm run start:prod
