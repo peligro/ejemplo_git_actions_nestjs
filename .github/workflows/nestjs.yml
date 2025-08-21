@@ -49,14 +49,16 @@ jobs:
             CURSO_BASE_URL_FRONTEND=
             EOF
             
-            # Stop and clean existing containers
+            # Stop and clean existing containers (solo el app)
             docker compose down || true
             docker system prune --all --force || true
             docker volume prune --force || true
             
-            # Build and start new containers
+            # Build and start only the app container
             docker compose up --build -d
             
-            # Espere a que los contenedores estén listos y ejecute las migraciones   
+            # Wait for container to be ready
             sleep 10
-            docker compose exec app npx prisma migrate dev --name init || echo "Migrations may have failed, continuing..."
+            
+            # Ejecución migraciones
+            docker compose exec app npx prisma migrate deploy || echo "Migrations completed"
