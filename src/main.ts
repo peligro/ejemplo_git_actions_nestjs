@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -25,5 +26,6 @@ async function bootstrap() {
    //configurar prefijo global
    app.setGlobalPrefix('api/v1');
   await app.listen(process.env.CURSO_SERVER_PORT);
+  Logger.debug(`Desplegando exitosamnte en el puerto ${process.env.CURSO_SERVER_PORT}`)
 }
 bootstrap();
