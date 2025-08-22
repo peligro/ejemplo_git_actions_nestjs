@@ -35,7 +35,7 @@ jobs:
             
             # Update .env with secrets - PUERTO 80 para la aplicación
             cat > .env << EOF
-            CURSO_TEST=App de recetas
+            CURSO_TEST=App de ejemplo
             CURSO_SERVER_PORT=3000  # Puerto INTERNO del contenedor
             SMTP_SERVER=
             SMTP_PORT=
