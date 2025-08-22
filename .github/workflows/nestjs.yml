@@ -60,7 +60,7 @@ jobs:
             # Espere a que el contenedor esté listo
             sleep 15
             
-            # Verifique que el contenedor tenga la carpeta dist 
+            # Verifique que el contenedor tenga la carpeta dist    
             echo "Comprobando la carpeta dist en el contenedor:"
             docker exec nestjs-app ls -la /usr/src/app/dist/ || echo "Carpeta dist no encontrada"
             
