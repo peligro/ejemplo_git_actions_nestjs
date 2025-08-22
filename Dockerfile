@@ -40,14 +40,11 @@ RUN npm install --only=production
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/node_modules/.prisma ./node_modules/.prisma
 
-# Generate Prisma client (solo para asegurar)
+# Generate Prisma client
 RUN npx prisma generate
-
-# Run migrations during build
-RUN npx prisma migrate deploy
 
 # Expose port
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "run", "start:prod"]
+# Start the application with migrations
+CMD sh -c "npx prisma migrate deploy && npm run start:prod"

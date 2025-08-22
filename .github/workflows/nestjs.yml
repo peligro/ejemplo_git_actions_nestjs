@@ -33,10 +33,10 @@ jobs:
               cp .env.example .env
             fi
             
-            # Update .env with secrets
+            # Update .env with secrets - PUERTO 80 para la aplicación
             cat > .env << EOF
             CURSO_TEST=App de recetas
-            CURSO_SERVER_PORT=3000
+            CURSO_SERVER_PORT=3000  # Puerto INTERNO del contenedor
             SMTP_SERVER=
             SMTP_PORT=
             SMTP_USER=
@@ -64,6 +64,4 @@ jobs:
             echo "Checking dist folder in container:"
             docker exec nestjs-app ls -la /usr/src/app/dist/ || echo "Dist folder not found"
             
-            # Test the application
-            echo "Testing application:"
-            docker exec nestjs-app curl -f http://ec2-3-85-174-52.compute-1.amazonaws.com/api/v1/health || echo "Health check failed"
+            

@@ -11,8 +11,8 @@ services:
       - "80:3000"
     environment:
       - NODE_ENV=production
-    # Solo monta el .env, no otros archivos
+      - CURSO_SERVER_PORT=3000  # Puerto interno del contenedor
+    # Monta el .env para runtime
     volumes:
       - .env:/usr/src/app/.env:ro
-    # Comando simple, las migraciones ya se ejecutaron en el build
-    command: npm run start:prod
+    # Las migraciones se ejecutan en el CMD del Dockerfile
