@@ -60,7 +60,7 @@ jobs:
             # Wait for container to be ready
             sleep 15
             
-            # Verify the container has the dist folder
+            # Verify the container has the dist folder 
             echo "Checking dist folder in container:"
             docker exec nestjs-app ls -la /usr/src/app/dist/ || echo "Dist folder not found"
             
