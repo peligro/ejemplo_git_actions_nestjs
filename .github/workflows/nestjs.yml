@@ -28,7 +28,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             
-            # Create .env if it doesn't exist
+            # Create .env if it doesn't exist 
             if [ ! -f .env ]; then
               cp .env.example .env
             fi
