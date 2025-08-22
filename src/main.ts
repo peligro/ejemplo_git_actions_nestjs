@@ -7,6 +7,6 @@ async function bootstrap() {
    //habilitar CORS
     app.enableCors();
   await app.listen(`${process.env.CURSO_SERVER_PORT}`);
-  Logger.debug(`Desplegando exitosamnte en el puerto ${process.env.CURSO_SERVER_PORT} con CI/CD`)
+  Logger.debug(`Desplegando exitosamnte en el puerto ${process.env.CURSO_SERVER_PORT} desde un Pipeline CI/CD`)
 }
 bootstrap();
