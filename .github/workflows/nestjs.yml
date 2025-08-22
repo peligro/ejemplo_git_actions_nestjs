@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Despliegue to EC2
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up SSH and deploy to EC2
+      - name: Configurar SSH e implementar en EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -24,16 +24,16 @@ jobs:
           script: |
             cd /home/ubuntu/proyecto
             
-            # Pull the latest code
+            # Pull última versión del código
             git fetch origin main
             git reset --hard origin/main
             
-            # Create .env if it doesn't exist 
+            # Crear .env si es que no existe 
             if [ ! -f .env ]; then
               cp .env.example .env
             fi
             
-            # Update .env with secrets - PUERTO 80 para la aplicación
+            # Actualizar .env con secrets - PUERTO 80 para la aplicación
             cat > .env << EOF
             CURSO_TEST=App de recetas
             CURSO_SERVER_PORT=3000  # Puerto INTERNO del contenedor
@@ -41,27 +41,27 @@ jobs:
             SMTP_PORT=
             SMTP_USER=
             SMTP_PASSWORD=
-            # Connect to Supabase via connection pooling
+            # Conectarse a Supabase a través del pool de conexiones (pooling)
             DATABASE_URL="postgresql://${{ secrets.DB_USERNAME }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:6543/${{ secrets.DB_DATABASE }}?pgbouncer=true"
-            # Direct connection to the database. Used for migrations
+            # Conexión directa a la base de datos. Se utiliza para migraciones
             DIRECT_URL="postgresql://${{ secrets.DB_USERNAME }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_DATABASE }}"
             CURSO_SERVER_JWT_SECRET=${{ secrets.JWT_SECRET }}
             CURSO_BASE_URL_FRONTEND=
             EOF
             
-            # Stop and clean existing containers
+            # Detener y limpiar los contenedores existentes
             docker compose down || true
             docker system prune --all --force || true
             docker volume prune --force || true
             
-            # Build and start the container
+            # Construir e iniciar el contenedor
             docker compose up --build -d
             
-            # Wait for container to be ready
+            # Espere a que el contenedor esté listo
             sleep 15
             
-            # Verify the container has the dist folder 
-            echo "Checking dist folder in container:"
-            docker exec nestjs-app ls -la /usr/src/app/dist/ || echo "Dist folder not found"
+            # Verifique que el contenedor tenga la carpeta dist 
+            echo "Comprobando la carpeta dist en el contenedor:"
+            docker exec nestjs-app ls -la /usr/src/app/dist/ || echo "Carpeta dist no encontrada"
             
             
