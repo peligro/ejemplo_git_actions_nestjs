@@ -42,7 +42,7 @@ COPY --from=builder /usr/src/app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /usr/src/app/assets ./assets  
 
 # Verifica que los archivos se copiaron correctamente
-RUN echo "=== Verificando assets ===" && ls -la /usr/src/app/assets/ && echo "=== Verificando index.html ===" && ls -la /usr/src/app/assets/index.html && echo "=== Contenido de uploads ===" && ls -la /usr/src/app/assets/uploads/ || echo "Uploads directory exists"
+#RUN echo "=== Verificando assets ===" && ls -la /usr/src/app/assets/ && echo "=== Verificando index.html ===" && ls -la /usr/src/app/assets/index.html && echo "=== Contenido de uploads ===" && ls -la /usr/src/app/assets/uploads/ || echo "Uploads directory exists"
 
 # Generate Prisma client
 RUN npx prisma generate
